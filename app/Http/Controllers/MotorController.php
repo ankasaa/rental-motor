@@ -37,11 +37,18 @@ class MotorController extends Controller
     //Request $\rightarrow$ Kelas bawaan Laravel untuk mengurus data yang dikirim (request).
         $motor = Motor::find($id); // a) Cari dulu data motor berdasarkan id
 
-        $motor->update([ // b) setelah di cari baru update datanya dengan data baru dari form
+        $motor->update([ // b) setelah di cari, baru update datanya dengan data baru dari form
             'nama' => $request->nama,
             'harga' => $request->harga,
             'stok' => $request->stok,
         ]);
-        return redirect('/motors'); // c) setelah di update baru kembalikan halaman daftar motor
+        return redirect('/motors'); // c) setelah di update, baru kembalikan halaman daftar motor
+    }
+    public function destroy($id){
+        $motor = Motor::find($id);  // a) cari data motor berdasarkan id
+
+        $motor->delete(); // b) setelah cari kemudian hapus data tersebut dari database
+
+        return redirect('/motors'); //c setelah di hapus, kembalikan ke halaman daftar motor
     }
 }
