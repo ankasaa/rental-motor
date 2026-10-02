@@ -25,4 +25,7 @@ class MotorController extends Controller
         ]);
         return Redirect('/motors');
     }
+    public function edit($id){
+        $motor = Motor::find($id);
+    }
 }
