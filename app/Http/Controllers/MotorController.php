@@ -25,7 +25,23 @@ class MotorController extends Controller
         ]);
         return Redirect('/motors');
     }
-    public function edit($id){
+    public function edit($id){ //$id: Itu bukan objek, melainkan sebuah variabel penampung (parameter)
         $motor = Motor::find($id);
+        //find($id): Kata find adalah method bawaan dari Eloquent Model. Artinya: "Tolong carikan satu baris data di tabel database yang kolom id-nya sama dengan angka yang dibawa oleh variabel $id." Hasil pencarian itu kemudian disimpan ke dalam variabel $motor
+
+        return view('motors.edit', compact('motor') );
+        // a) Ini artinya kita memerintahkan Laravel untuk membuka dan menampilkan file tampilan (blade) yang letaknya ada di resources/views/motors/edit.blade.php
+        // b) compact('motor'): Ini adalah fungsi bawaan PHP/Laravel yang tugasnya membungkus variabel $motor agar bisa dikirim dan dibaca di dalam file halaman view (edit.blade.php)
+    }
+    public function update(Request $request, $id){ //Mendefinisikan method bernama update.
+    //Request $\rightarrow$ Kelas bawaan Laravel untuk mengurus data yang dikirim (request).
+        $motor = Motor::find($id); // a) Cari dulu data motor berdasarkan id
+
+        $motor->update([ // b) setelah di cari baru update datanya dengan data baru dari form
+            'nama' => $request->nama,
+            'harga' => $request->harga,
+            'stok' => $request->stok,
+        ]);
+        return redirect('/motors'); // c) setelah di update baru kembalikan halaman daftar motor
     }
 }
