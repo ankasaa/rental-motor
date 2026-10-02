@@ -7,7 +7,7 @@
     <title>Edit-Motor</title>
 </head>
 <body>
-    <form action="/motors {{$motor->id}}" method="POST">
+    <form action="/motors/{{$motor->id}}" method="POST">
         @csrf
         @method('PUT')
         <label for="text">Nama :</label>
